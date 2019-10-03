@@ -1,8 +1,8 @@
 <launch>
-  <arg name="ip_address" default="http://192.168.1.201"/>
+  <arg name="ip_address" default="192.168.1.201"/>
   <arg name="config_file" default="$(find sensor_monitor)/config/velodyne_monitor.yaml"/>
   <rosparam command="load" file="$(arg config_file)" ns="velodyne_monitor"/>
-  <node pkg="sensor_monitor" type="velodyne_monitor.py" name="velodyne_monitor" respawn="true">
+  <node pkg="sensor_monitor" type="velodyne_monitor.py" name="velodyne_monitor" output="screen">
     <param name="ip_address" value="$(arg ip_address)"/>
   </node>
 </launch>
