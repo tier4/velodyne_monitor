@@ -30,6 +30,7 @@ class VelodyneMonitor():
         self._temp_cold_error = rospy.get_param('~temp_cold_error', -10.0)
         self._temp_heat_warn = rospy.get_param('~temp_heat_warn', 70.0)
         self._temp_heat_error = rospy.get_param('~temp_heat_error', 90.0)
+        self._connection_timeout = rospy.get_param('~connection_timeout', 0.05)
         self._pub = rospy.Publisher('/diagnostics', DiagnosticArray, queue_size=10)
         self.name = rospy.get_namespace().strip('/')
         if self.name == '':
@@ -38,8 +39,8 @@ class VelodyneMonitor():
         try:
             info_url = 'http://' + self._ip + '/cgi/info.json'
             diag_url = 'http://' + self._ip + '/cgi/diag.json'
-            self._info_data = json.load(urllib2.urlopen(info_url, timeout=0.3))
-            self._diag_data = json.load(urllib2.urlopen(diag_url, timeout=0.3))
+            self._info_data = json.load(urllib2.urlopen(info_url, self._connection_timeout))
+            self._diag_data = json.load(urllib2.urlopen(diag_url, self._connection_timeout))
             return True
         except urllib2.URLError as err:
             print err
