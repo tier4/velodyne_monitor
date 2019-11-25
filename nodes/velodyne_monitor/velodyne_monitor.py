@@ -46,7 +46,7 @@ class VelodyneMonitor():
             print err
             return False
         except Exception as e:
-            print err
+            print e
             return False
 
     def judge_risk_level(self, top_temp, bot_temp, i_out, v_in, stat):
