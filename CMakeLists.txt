@@ -1,5 +1,5 @@
 cmake_minimum_required(VERSION 2.8.3)
-project(sensor_monitor)
+project(velodyne_monitor)
 find_package(catkin REQUIRED)
 catkin_package(CATKIN_DEPENDS)
 

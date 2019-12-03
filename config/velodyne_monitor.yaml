@@ -4,3 +4,4 @@ temp_cold_warn: -5.0
 temp_cold_error: -10.0
 temp_heat_warn: 70.0
 temp_heat_error: 90.0
+connection_timeout: 0.05
