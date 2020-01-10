@@ -2,6 +2,6 @@ v_in_warn: 11.0
 v_in_error: 9.0
 temp_cold_warn: -5.0
 temp_cold_error: -10.0
-temp_heat_warn: 70.0
-temp_heat_error: 90.0
+temp_heat_warn: 75.0
+temp_heat_error: 80.0
 connection_timeout: 0.05
