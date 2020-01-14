@@ -103,6 +103,7 @@ class VelodyneMonitor():
         stat = DiagnosticStatus()
         stat.name = self.name
         is_connect_ok = self.check_connection()
+
         if is_connect_ok:
           stat.hardware_id = str(self._info_data['serial'])
           model = str(self._info_data['model'])
@@ -110,7 +111,8 @@ class VelodyneMonitor():
           bot_temp = self.convertTemp(self._diag_data['volt_temp']['bot']['lm20_temp'])
           i_out = self.convertAmp(self._diag_data['volt_temp']['bot']['i_out'])
           v_in = self.convertVolt(self._diag_data['volt_temp']['bot']['pwr_v_in'])
-          stat.values = [ KeyValue(key = 'Model', value = str(model)),
+          stat.values = [ KeyValue(key = 'ConnectionStatus', value = 'OK'),
+                          KeyValue(key = 'Model', value = str(model)),
                           KeyValue(key = 'TopTemp[DegC]', value = str(round(top_temp, 3))),
                           KeyValue(key = 'BottomTemp[DegC]', value = str(round(bot_temp, 3))),
                           KeyValue(key = 'Iout[V]', value = str(round(i_out, 3))),
@@ -118,7 +120,9 @@ class VelodyneMonitor():
           self.judge_risk_level(top_temp, bot_temp, i_out, v_in, stat)
         else:
           stat.level = DiagnosticStatus.ERROR
+          stat.hardware_id = 'Velodyne'
           stat.message = 'Connection Lost ' + self._ip 
+          stat.values = [ KeyValue(key = 'ConnectionStatus', value = 'N/A') ]
 
         msg = DiagnosticArray()
         msg.header.stamp = rospy.get_rostime()
