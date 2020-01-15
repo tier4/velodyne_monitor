@@ -39,8 +39,8 @@ class VelodyneMonitor():
         try:
             info_url = 'http://' + self._ip + '/cgi/info.json'
             diag_url = 'http://' + self._ip + '/cgi/diag.json'
-            self._info_data = json.load(urllib2.urlopen(info_url, self._connection_timeout))
-            self._diag_data = json.load(urllib2.urlopen(diag_url, self._connection_timeout))
+            self._info_data = json.load(urllib2.urlopen(info_url, timeout=self._connection_timeout))
+            self._diag_data = json.load(urllib2.urlopen(diag_url, timeout=self._connection_timeout))
             return True
         except urllib2.URLError as err:
             print err
