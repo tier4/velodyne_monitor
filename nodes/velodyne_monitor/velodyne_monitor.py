@@ -19,7 +19,7 @@ import numpy
 import json
 import time
 from diagnostic_msgs.msg import DiagnosticArray, DiagnosticStatus, KeyValue
-import urllib2
+import requests
 
 class VelodyneMonitor():
     def __init__(self):
@@ -39,12 +39,20 @@ class VelodyneMonitor():
         try:
             info_url = 'http://' + self._ip + '/cgi/info.json'
             diag_url = 'http://' + self._ip + '/cgi/diag.json'
-            self._info_data = json.load(urllib2.urlopen(info_url, timeout=self._connection_timeout))
-            self._diag_data = json.load(urllib2.urlopen(diag_url, timeout=self._connection_timeout))
-            return True
-        except urllib2.URLError as err:
-            print err
+            info_req = requests.get(info_url, headers={'Connection': 'close'}, timeout=self._connection_timeout)
+            diag_req = requests.get(diag_url, headers={'Connection': 'close'}, timeout=self._connection_timeout)
+            info_req.raise_for_status()
+            diag_req.raise_for_status()
+        except requests.exceptions.RequestException as e:
+            print e
             return False
+        except Exception as e:
+            print e
+            return False
+        try:
+            self._info_data = info_req.json()
+            self._diag_data = diag_req.json()
+            return True
         except Exception as e:
             print e
             return False
