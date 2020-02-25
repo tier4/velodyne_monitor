@@ -1,10 +1,12 @@
 <launch>
   <arg name="monitoring_interval_sec" default="1"/>
   <arg name="ip_addresses" default="[192.168.1.201]"/>
+  <arg name="names" default="[velodyne]"/>
   <arg name="config_file" default="$(find velodyne_monitor)/config/velodyne_monitor.yaml"/>
   <rosparam command="load" file="$(arg config_file)" ns="velodyne_monitor"/>
   <node pkg="velodyne_monitor" type="velodyne_monitor.py" name="velodyne_monitor" output="screen">
     <param name="monitoring_interval_sec" value="$(arg monitoring_interval_sec)" />
     <rosparam param="ip_addresses" subst_value="True">$(arg ip_addresses)</rosparam>
+    <rosparam param="names" subst_value="True">$(arg names)</rosparam>
   </node>
 </launch>

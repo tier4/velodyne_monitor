@@ -23,6 +23,7 @@ if __name__ == '__main__':
         rospy.init_node('scheduled_velodyne_monitor')
         monitoring_interval_sec = rospy.get_param('~monitoring_interval_sec', 1)
         ip_addresses = rospy.get_param('~ip_addresses', ['192.168.1.201'])
+        names = rospy.get_param('~names', ip_addresses)
 
         rate = rospy.Rate(monitoring_interval_sec)
 
@@ -30,6 +31,7 @@ if __name__ == '__main__':
         for i, ip in enumerate(ip_addresses):
             rospy.set_param('~ip_address', ip)
             monitors[i] = VelodyneMonitor()
+            monitors[i].name = names[i]
 
         monitor_index = 0
         while not rospy.is_shutdown():
