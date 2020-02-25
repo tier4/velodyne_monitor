@@ -5,6 +5,7 @@ catkin_package(CATKIN_DEPENDS)
 
 install(PROGRAMS
   nodes/velodyne_monitor/velodyne_monitor.py
+  nodes/scheduled_velodyne_monitor/scheduled_velodyne_monitor.py
   DESTINATION ${CATKIN_PACKAGE_BIN_DESTINATION}
 )
 
