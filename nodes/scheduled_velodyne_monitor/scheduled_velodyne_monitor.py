@@ -25,7 +25,7 @@ if __name__ == '__main__':
         ip_addresses = rospy.get_param('~ip_addresses', ['192.168.1.201'])
         names = rospy.get_param('~names', ip_addresses)
 
-        rate = rospy.Rate(monitoring_interval_sec)
+        rate = rospy.Rate(1.0/monitoring_interval_sec)
 
         monitors = {}
         for i, ip in enumerate(ip_addresses):
